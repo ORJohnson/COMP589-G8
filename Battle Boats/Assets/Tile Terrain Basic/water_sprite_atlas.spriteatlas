@@ -36,12 +36,8 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites:
-  - {fileID: 21300000, guid: 9324f3c183fbac04fae903911e5bdfdf, type: 3}
-  - {fileID: 21300000, guid: 0f62a40db24edeb468c9ab45613b5437, type: 3}
-  m_PackedSpriteNamesToIndex:
-  - ocean00
-  - below_water00
+  m_PackedSprites: []
+  m_PackedSpriteNamesToIndex: []
   m_RenderDataMap: {}
   m_Tag: water_sprite_atlas
   m_IsVariant: 0

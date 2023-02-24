@@ -40,6 +40,8 @@ SpriteAtlas:
       allowAlphaSplitting: 0
       enableRotation: 1
       enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
     - {fileID: 2800000, guid: 062d67e547089b7409e1ede5a74b0e59, type: 3}
@@ -105,6 +107,8 @@ SpriteAtlas:
     - {fileID: 2800000, guid: b2ad1df341b0ba1469c833d7559934a9, type: 3}
     - {fileID: 2800000, guid: f567a8f48bdfe2340b318b96d0a67fef, type: 3}
     bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 154cf1a025496374ba7dfb891844bca8, type: 3}
@@ -232,5 +236,6 @@ SpriteAtlas:
   - scrubland03
   - mountain02
   - plains03
+  m_RenderDataMap: {}
   m_Tag: TilesBasic sprite atlas
   m_IsVariant: 0
