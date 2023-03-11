@@ -155,6 +155,7 @@ MonoBehaviour:
   _width: 10
   _height: 10
   _nodePrefab: {fileID: 6108492946946460424, guid: 39c187d2b3d5792429431c35682055df, type: 3}
+  _boardPrefab: {fileID: 5664130501183846312, guid: 7351cedd4841ec149a8524d872b7d4ea, type: 3}
 --- !u!4 &1782286238
 Transform:
   m_ObjectHideFlags: 0
@@ -206,7 +207,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.33333334, g: 0.38431373, b: 0.4392157, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int _width = 10;
     [SerializeField] private int _height = 10;
     [SerializeField] private Node _nodePrefab;
+    [SerializeField] private SpriteRenderer _boardPrefab;
 
     private void Start()
     {
@@ -23,9 +24,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        var center = new Vector2((float) _width/2, (float) _height/2);
+        var center = new Vector2((float) _width/2 - 0.5f, (float) _height/2);
 
         // Use that^ for the board as well
+        var board = Instantiate(_boardPrefab, center, Quaternion.identity);
+        board.size = new Vector2(_width, _height);
 
         Camera.main.transform.position = new Vector3(center.x, center.y, -10);
     }
