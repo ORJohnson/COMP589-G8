@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotateButtonManager : MonoBehaviour
 {
-    public GameObject gameObject;
+    public new GameObject gameObject;
 
     public void RotateObject()
     {
