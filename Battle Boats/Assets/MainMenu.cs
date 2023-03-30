@@ -13,6 +13,11 @@ public class MainMenu : MonoBehaviour
     public void ExitGame() {
         Debug.Log("Exiting.....");
         Application.Quit();
-}
+    }
+
+    public void Instructions()
+    {
+        SceneManager.LoadScene("InstructionsPage");
+    }
 
 }
