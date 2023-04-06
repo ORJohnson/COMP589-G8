@@ -42,14 +42,7 @@ public class ShipDragDropScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (isToggled)
-            {
-                // Turn off the highlighting when clicked again
-                spriteRenderer.color = originalColor;
-                isToggled = false;
-                isBeingHeld = false;
-            }
-            else
+            if (!isToggled)
             {
                 // Turn on the highlighting when clicked
                 spriteRenderer.color = Color.yellow;
@@ -71,6 +64,13 @@ public class ShipDragDropScript : MonoBehaviour
         {
             // Release the ship
             isBeingHeld = false;
+
+            // Turn off the highlighting when released
+            if (isToggled)
+            {
+                spriteRenderer.color = originalColor;
+                isToggled = false;
+            }
         }
     }
 
