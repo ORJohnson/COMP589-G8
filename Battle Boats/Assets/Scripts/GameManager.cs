@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Node _nodePrefab;
     [SerializeField] private SpriteRenderer _boardPrefab;
 
+    private bool setupComplete = false;
+    private bool playerTurn = true;
+
     private void Start()
     {
         GenerateGrid();
@@ -32,4 +35,16 @@ public class GameManager : MonoBehaviour
 
         Camera.main.transform.position = new Vector3(center.x, center.y, -10);
     }
+
+    public void TileClicked(GameObject tile)
+    {
+        if(setupComplete && playerTurn)
+        {
+
+        } else if (!setupComplete)
+        {
+
+        }
+    }
+
 }
