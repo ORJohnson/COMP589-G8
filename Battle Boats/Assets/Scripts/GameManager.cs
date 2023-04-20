@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -11,10 +14,15 @@ public class GameManager : MonoBehaviour
 
     private bool setupComplete = false;
     private bool playerTurn = true;
+    // Enemy ships list
+    private List<int[]> enemyShips;
+    private int enemyShipCount = 5;
+    private int playShipCount = 5;
 
     private void Start()
     {
         GenerateGrid();
+        // Potentially run method to place enemy ships
     }
 
     void GenerateGrid()
@@ -40,11 +48,54 @@ public class GameManager : MonoBehaviour
     {
         if(setupComplete && playerTurn)
         {
-
+            // drop a missile
         } else if (!setupComplete)
         {
 
         }
     }
 
+    public void CheckHit(GameObject tile)
+    {
+        int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
+        int hitCount = 0;
+
+        foreach (int[] tileNumArray in enemyShips)
+        {
+            if(tileNumArray.Contains(tileNum))
+            {
+                for (int i = 0; i < tileNumArray.Length; i++)
+                {
+                    if (tileNumArray[i] == tileNum)
+                    {
+                        tileNumArray[i] = -5;
+                        hitCount++;
+                    }
+                    else if (tileNumArray[i] == -5)
+                    {
+                        hitCount++;
+                    }
+                }
+                if (hitCount == tileNumArray.Length)
+                {
+                    enemyShipCount--;
+                    // Something to mention that the ship has sunk
+                    // Enemy Fires
+                    // Tile Color
+                }
+                else
+                {
+                    // Something to mention that the ship was hit
+                }
+                break;
+            }
+            
+        }
+        if(hitCount == 0)
+        {
+            // color for a miss
+            // Something to mention that the tile was a miss
+        }
+        // Invoke EndPlayerTurn
+    }
 }
