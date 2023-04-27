@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     private List<int[]> enemyShips;
     private int enemyShipCount = 5;
     private int playShipCount = 5;
+    private List<GameObject> playerFires;
+    public GameObject firePrefab;
 
     private void Start()
     {
@@ -38,7 +40,7 @@ public class GameManager : MonoBehaviour
 
         // Potentially run method to place enemy ships
     }
- private void NextShipClicked()
+    private void NextShipClicked()
     {
     //     if (!shipScript.OnGameBoard())
     //     {
@@ -143,6 +145,7 @@ public class GameManager : MonoBehaviour
         // Invoke EndPlayerTurn
     }
 
+
     private void PlaceShip(GameObject tile){
         shipScript = ships[shipsIndex].GetComponent<ShipScript>();
         shipScript.ClearTileList();
@@ -153,6 +156,20 @@ public class GameManager : MonoBehaviour
 
     void RotateClicked(){
         shipScript.RotateShip();
+    }
+
+
+    public void EnemyHitPlayer(Vector3 tile, int tileNum, GameObject hitObj)
+    {
+        //enemyScript.missileHit(tileNum);
+        tile.y += 0.2f; // this might be z since we are dealing with a 2d game
+        playerFires.Add(Instantiate(firePrefab, tile, Quaternion.identity));
+        if(hitObj.GetComponent<ShipDragDropScript>().HitCheckSank())
+        {
+            playerShipCount--;
+            // update text that represents player ship count
+        }
+        // Invoke("EndEnemyTurn", 2.0f);
     }
 
 }
