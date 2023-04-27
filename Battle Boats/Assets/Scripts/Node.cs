@@ -30,7 +30,7 @@ public class Node : MonoBehaviour
                 if(!missleHit)
                 {
                     // have to create method for TileClicked
-                    // gameManager.TileClicked(hit.collider.gameObject);
+                    gameManager.TileClicked(hit.collider.gameObject);
                 }
             }
         }

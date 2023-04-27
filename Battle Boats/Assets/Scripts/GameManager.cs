@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Node _nodePrefab;
     [SerializeField] private SpriteRenderer _boardPrefab;
 
+    [Header("HUD")]
+    public Button nextBtn;
+    public Button rotateBtn;
+
+    public GameObject[] ships;
+    private int shipsIndex = 0;
+
+    private ShipScript shipScript;
     private bool setupComplete = false;
     private bool playerTurn = true;
     // Enemy ships list
@@ -22,7 +31,39 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GenerateGrid();
+        shipScript = ships[shipsIndex].GetComponent<ShipScript>();
+        nextBtn.onClick.AddListener(() => NextShipClicked());
+        rotateBtn.onClick.AddListener(() => RotateClicked());
+
+
         // Potentially run method to place enemy ships
+    }
+ private void NextShipClicked()
+    {
+    //     if (!shipScript.OnGameBoard())
+    //     {
+    //         shipScript.FlashColor(Color.red);
+    //     } else
+    //     {
+            if(shipsIndex <= ships.Length - 2)
+            {
+            //  shipScript.GetComponent<SpriteRenderer>().color = Color.yellow;
+                shipsIndex++;
+                shipScript = ships[shipsIndex].GetComponent<ShipScript>();
+
+                //shipScript.FlashColor(Color.yellow);
+            }
+            // else
+            // {
+            //     rotateBtn.gameObject.SetActive(false);
+            //     nextBtn.gameObject.SetActive(false);
+            //     woodDock.SetActive(false);
+            //     topText.text = "Choose an enemy tile.";
+            //     setupComplete = true;
+            //     for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
+            // }
+        // }
+        
     }
 
     void GenerateGrid()
@@ -51,6 +92,9 @@ public class GameManager : MonoBehaviour
             // drop a missile
         } else if (!setupComplete)
         {
+            PlaceShip(tile);
+            shipScript.SetClickedTile(tile);
+
 
         }
     }
@@ -98,4 +142,17 @@ public class GameManager : MonoBehaviour
         }
         // Invoke EndPlayerTurn
     }
+
+    private void PlaceShip(GameObject tile){
+        shipScript = ships[shipsIndex].GetComponent<ShipScript>();
+        shipScript.ClearTileList();
+        Vector3 newVec = shipScript.GetOffsetVec(tile.transform.position);
+        ships[shipsIndex].transform.localPosition = newVec;
+
+    }
+
+    void RotateClicked(){
+        shipScript.RotateShip();
+    }
+
 }
