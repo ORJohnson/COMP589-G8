@@ -24,24 +24,28 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isGamePaused = false;
+        AudioListener.pause = isGamePaused;
     }
 
     void Pause() {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isGamePaused = true;
+        AudioListener.pause = isGamePaused;
     }
 
-    public void BackMenu() {
+    void BackMenu() {
         Debug.Log("Going back to Welcome Page...");
         Time.timeScale = 1f;
         SceneManager.LoadScene("WelcomePage");
 
     }
 
-    public void QuitGame() {
+    void QuitGame() {
         Debug.Log("Quiting Game....");
         Application.Quit();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ExitPage");
     }
 
 }
