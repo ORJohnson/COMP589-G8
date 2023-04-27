@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Enemy ships list
     private List<int[]> enemyShips;
     private int enemyShipCount = 5;
-    private int playShipCount = 5;
+    private int playerShipCount = 5;
     private List<GameObject> playerFires;
     public GameObject firePrefab;
 
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
         //enemyScript.missileHit(tileNum);
         tile.y += 0.2f; // this might be z since we are dealing with a 2d game
         playerFires.Add(Instantiate(firePrefab, tile, Quaternion.identity));
-        if(hitObj.GetComponent<ShipDragDropScript>().HitCheckSank())
+        if(hitObj.GetComponent<ShipScript>().HitCheckSank())
         {
             playerShipCount--;
             // update text that represents player ship count
