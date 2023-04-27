@@ -60,4 +60,9 @@ public class ShipScript : MonoBehaviour
         clickedTile = tile;
     }
 
+     public bool HitCheckSank()
+    {
+        hitCount++;
+        return shipSize <= hitCount;
+    }
 }
