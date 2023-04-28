@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ExitPage.unity
     guid: 63cb5741bdeb3fe4eb1a4c4c331b295f
+  - enabled: 1
+    path: Assets/Scenes/BoardScene.unity
+    guid: bb4458f0fbe508d47ad05905ab367e9d
   m_configObjects: {}
