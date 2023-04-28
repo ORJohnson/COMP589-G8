@@ -7,7 +7,8 @@ public class MainMenu : MonoBehaviour
 {
     public void StartBattle()
     {
-        SceneManager.LoadScene("Ships");
+        // SceneManager.LoadScene("Ships");
+         SceneManager.LoadScene("BoardScene");
     }
 
     public void ExitGame() {

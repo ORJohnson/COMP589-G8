@@ -21,6 +21,7 @@ public class EnemyScript : MonoBehaviour
 
     public List<int[]> PlaceEnemyShips()
     {
+        Debug.Log("Starting to place enemy ships");
         List<int[]> enemyShips = new List<int[]>
         {
             new int[]{-1, -1, -1, -1, -1},
@@ -70,6 +71,26 @@ public class EnemyScript : MonoBehaviour
         {
             Debug.Log("x: " + x[0]);
         }
+        Debug.Log("Placed all the 5 enemy ships");
         return enemyShips;
+    }
+
+    public void MissileHit(int hit)
+    {
+        guessGrid[guess] = 'h';
+        Invoke("EndTurn", 1.0f);
+    }
+
+    public void SunkPlayer()
+    {
+        for(int i = 0; i < guessGrid.Length; i++)
+        {
+            if (guessGrid[i] == 'h') guessGrid[i] = 'x';
+        }
+    }
+
+    private void EndTurn()
+    {
+        gameManager.GetComponent<GameManager>().EndEnemyTurn();
     }
 }

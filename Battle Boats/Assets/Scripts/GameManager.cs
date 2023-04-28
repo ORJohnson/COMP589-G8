@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] ships;
     private int shipsIndex = 0;
 
+    public EnemyScript enemyScript;
     private ShipScript shipScript;
     private bool setupComplete = false;
     private bool playerTurn = true;
@@ -33,9 +34,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         GenerateGrid();
-        shipScript = ships[shipsIndex].GetComponent<ShipScript>();
-        nextBtn.onClick.AddListener(() => NextShipClicked());
-        rotateBtn.onClick.AddListener(() => RotateClicked());
+        // shipScript = ships[shipsIndex].GetComponent<ShipScript>();
+        // nextBtn.onClick.AddListener(() => NextShipClicked());
+        // rotateBtn.onClick.AddListener(() => RotateClicked());
+        enemyShips = enemyScript.PlaceEnemyShips();
 
 
         // Potentially run method to place enemy ships
