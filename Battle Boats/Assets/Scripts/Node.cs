@@ -5,10 +5,8 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     GameManager gameManager;
-    Ray ray;
-    RaycastHit hit;
 
-    private bool missleHit = false;
+    private bool missileHit = false;
     Color32[] hitColor = new Color32[2];
 
     // Start is called before the first frame update
@@ -22,32 +20,36 @@ public class Node : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out hit))
+        if (Input.GetMouseButtonDown(0))
         {
-            if(Input.GetMouseButtonDown(0) && hit.collider.gameObject.name == gameObject.name) 
+            if (!missileHit)
             {
-                if(!missleHit)
+                Vector3 mousePos;
+                mousePos = Input.mousePosition;
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+                if (hit.collider != null)
                 {
-                    // have to create method for TileClicked
-                    gameManager.TileClicked(hit.collider.gameObject);
+                    GameObject clickedObject = hit.collider.gameObject;
+                    gameManager.TileClicked(clickedObject);
                 }
             }
         }
     }
 
-    // In case we want to actually have an animation of the missile hitting the tiles
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Missile"))
+        if (collision.gameObject.CompareTag("PlayerMissile"))
         {
-            missleHit = true;
+            missileHit = true;
         } else if (collision.gameObject.CompareTag("EnemyMissile"))
         {
+            // Set tile color to be different so we know enemy has taken turn
             hitColor[0] = new Color32(38, 57, 76, 255);
             GetComponent<Renderer>().material.color = hitColor[0];
         }
-    }*/
+    }
 
     public void SetTileColor(int index, Color32 color)
     {
