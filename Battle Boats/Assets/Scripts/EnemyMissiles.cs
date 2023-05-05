@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMissiles : MonoBehaviour
 {
     GameManager gameManager;
-    // EnemyScript enemyScript(or whatever the name of the class is)
+    EnemyScript enemyScript;
     public Vector3 targetTileLocation;
     private int targetTile = -1;
 
@@ -13,18 +13,25 @@ public class EnemyMissiles : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        // enemyScript = GameObject.Find("Enemy").GetComponent<EnemyScript>();
+        enemyScript = GameObject.Find("Enemy").GetComponent<EnemyScript>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+ private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ship"))
         {
-            // gameManager.EnemyHitPlayer(targetTileLocation, targetTile, collision.gameObject);
+            if (collision.gameObject.name == "Submarine") targetTileLocation.y += 0.3f;
+            gameManager.EnemyHitPlayer(targetTileLocation, targetTile, collision.gameObject);
         }
         else
         {
-
+            enemyScript.PauseAndEnd(targetTile);
         }
+        Destroy(gameObject);
+    }
+
+      public void SetTarget(int target)
+    {
+        targetTile = target;
     }
 }

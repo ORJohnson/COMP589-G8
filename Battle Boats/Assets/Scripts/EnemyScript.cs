@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour
     List<int> potentialHits;
     List<int> currentHits;
     private int guess;
-    public GameObject enemyMissilePrefab;
+    public GameObject _enemyMissilePrefab;
     public GameManager gameManager;
 
     private void Start()
@@ -67,6 +67,7 @@ public class EnemyScript : MonoBehaviour
                 }
             }
         }
+        Debug.Log(enemyShips);
         foreach(var x in enemyShips)
         {
             Debug.Log("x: " + x[0]);
@@ -92,5 +93,23 @@ public class EnemyScript : MonoBehaviour
     private void EndTurn()
     {
         gameManager.GetComponent<GameManager>().EndEnemyTurn();
+    }
+
+   public void PauseAndEnd(int miss)
+    {
+        if(currentHits.Count > 0 && currentHits[0] > miss)
+        {
+            foreach(int potential in potentialHits)
+            {
+                if(currentHits[0] > miss)
+                {
+                    if (potential < miss) potentialHits.Remove(potential);
+                } else
+                {
+                    if (potential > miss) potentialHits.Remove(potential);
+                }
+            }
+        }
+        Invoke("EndTurn", 1.0f);
     }
 }
