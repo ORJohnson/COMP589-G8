@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Ships")]
     public GameObject[] ships;
-    public List<TileScript> allTileScripts; //Didnt exist
+    public List<Node> allTileScripts;
     public EnemyScript enemyScript;
     private ShipScript shipScript;
     private List<int[]> enemyShips;
@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     public Text topText;
     public Text playerShipText;
     public Text enemyShipText;
-    //public List<TileScript> allTileScripts;
 
     [Header("Objects")]
     public GameObject _playerMissilePrefab;
@@ -45,12 +44,7 @@ public class GameManager : MonoBehaviour
     private bool playerTurn = true;
  
     private List<GameObject> playerFires = new List<GameObject>();
-    private List<GameObject> enemtFires = new List<GameObject>(); //didnt exist
-    private int shipsIndex = 0;
-    public EnemyScript enemyScript;
-    private ShipScript shipScript;
-    private List<int[]> enemyShips;
-
+    private List<GameObject> enemyFires = new List<GameObject>(); //didnt exist
 
     private int enemyShipCount = 5;
     private int playerShipCount = 5;
@@ -188,14 +182,16 @@ public class GameManager : MonoBehaviour
                 if (hitCount == tileNumArray.Length)
                 {
                     enemyShipCount--;
-                    // Something to mention that the ship has sunk => topText.text = "Ship Sunk!"
-                    // enemyFires
-                    // Tile Color
+                    topText.text = "SUNK!!!!!!";
+                    enemyFires.Add(Instantiate(firePrefab, tile.transform.position, Quaternion.identity));
+                    tile.GetComponent<Node>().SetTileColor(1, new Color32(68, 0, 0, 255));
+                    tile.GetComponent<Node>().SwitchColors(1);
                 }
                 else
                 {
-                    // Something to mention that the ship was hit => topText.text = "Hit!"
-                    // Tile Color
+                    topText.text = "HIT!!";
+                    tile.GetComponent<Node>().SetTileColor(1, new Color32(255, 0, 0, 255));
+                    tile.GetComponent<Node>().SwitchColors(1);
                 }
                 break;
             }
@@ -203,10 +199,11 @@ public class GameManager : MonoBehaviour
         }
         if(hitCount == 0)
         {
-            // color for a miss
-            // Something to mention that the tile was a miss => topText.text = "Miss!"
+            tile.GetComponent<Node>().SetTileColor(1, new Color32(38, 57, 76, 255));
+            tile.GetComponent<Node>().SwitchColors(1);
+            topText.text = "Missed, there is no ship there.";
         }
-        // Invoke EndPlayerTurn
+        Invoke("EndPlayerTurn", 1.0f);
     }
 
 
@@ -225,16 +222,16 @@ public class GameManager : MonoBehaviour
 
     public void EnemyHitPlayer(Vector3 tile, int tileNum, GameObject hitObj)
     {
-        //enemyScript.missileHit(tileNum);
-        tile.y += 0.2f; // this might be z since we are dealing with a 2d game
-        playerFires.Add(Instantiate(_firePrefab, tile, Quaternion.identity));
-        if(hitObj.GetComponent<ShipScript>().HitCheckSank())
+        enemyScript.MissileHit(tileNum);
+        tile.y += 0.2f;
+        playerFires.Add(Instantiate(firePrefab, tile, Quaternion.identity));
+        if (hitObj.GetComponent<ShipScript>().HitCheckSank())
         {
             playerShipCount--;
-            // update text that represents player ship count => playerShipText.text = playerShipCount.ToString();
-            // execute script for enemy sinking the player's ship => enemyScript.SunkPlayer();
+            playerShipText.text = playerShipCount.ToString();
+            enemyScript.SunkPlayer();
         }
-        // Invoke("EndEnemyTurn", 2.0f);
+       Invoke("EndEnemyTurn", 2.0f);
     }
 
 
@@ -243,11 +240,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < ships.Length; i++) ships[i].SetActive(true);
         foreach (GameObject fire in playerFires) fire.SetActive(true);
         foreach (GameObject fire in enemyFires) fire.SetActive(false);
-        // enemyShipText = enemyShipCount.ToString(); to update enemy ship number
-        // Change toptext to say Enemy's turn
-        // enemyScript.NPCTurn();
+        enemyShipText.text = enemyShipCount.ToString();
+        topText.text = "Enemy's turn";
+        enemyScript.NPCTurn();
         ColorAllTiles(0);
-        if (playerShipCount < 1) GameOver("You Win!");
+        if (playerShipCount < 1) GameOver("ENEMY WINs!!!");
     }
 
     private void EndEnemyTurn()
@@ -255,25 +252,26 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
         foreach (GameObject fire in playerFires) fire.SetActive(false);
         foreach (GameObject fire in enemyFires) fire.SetActive(true);
-        // playerShipText = playerShipCount.ToString(); to update enemy ship number
-        // Change toptext to say Player's turn
-        // enemyScript.NPCTurn();
+        playerShipText.text = playerShipCount.ToString();
+        topText.text = "Select a tile";
+        playerTurn = true;
         ColorAllTiles(1);
-        if (enemyShipCount < 1) GameOver("You Lose!");
+        if (enemyShipCount < 1) GameOver("YOU WIN!!");
     }
 
     private void ColorAllTiles(int colorIndex)
     {
-        //for (TileScript tileScript in allTileScript)
-        //{
-        //    nodeScript.SwitchColors(colorIndex);
-        //}
+        foreach (Node tileScript in allTileScripts)
+        {
+            tileScript.SwitchColors(colorIndex);
+        }
     }
 
     void GameOver(string winner)
     {
-        // change text to say "Game Over"
-        // Replay button set to Active
+        topText.text = "Game Over: " + winner;
+        replayBtn.gameObject.SetActive(true);
+        playerTurn = false;
     }
 
     void ReplayClicked()

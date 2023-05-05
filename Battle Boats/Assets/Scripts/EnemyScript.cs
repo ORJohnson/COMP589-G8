@@ -112,4 +112,76 @@ public class EnemyScript : MonoBehaviour
         }
         Invoke("EndTurn", 1.0f);
     }
+
+    public void NPCTurn()
+    {
+        List<int> hitIndex = new List<int>();
+        for(int i = 0; i < guessGrid.Length; i++)
+        {
+            if (guessGrid[i] == 'h') hitIndex.Add(i);
+        }
+        if(hitIndex.Count > 1)
+        {
+            int diff = hitIndex[1] - hitIndex[0];
+            int posNeg = Random.Range(0, 2) * 2 - 1;
+            int nextIndex = hitIndex[0] + diff;
+            while(guessGrid[nextIndex] != 'o')
+            {
+                if(guessGrid[nextIndex] == 'm' || nextIndex > 100 || nextIndex < 0)
+                {
+                    diff *= -1;
+                }
+                nextIndex += diff;
+            }
+            guess = nextIndex;
+        }
+        else if (hitIndex.Count == 1)
+        {
+            List<int> closeTiles = new List<int>();
+            closeTiles.Add(1); closeTiles.Add(-1); closeTiles.Add(10); closeTiles.Add(-10);
+            int index = Random.Range(0, closeTiles.Count);
+            int possibleGuess = hitIndex[0] + closeTiles[index];
+            bool onGrid = possibleGuess > -1 && possibleGuess < 100;
+            while((!onGrid || guessGrid[possibleGuess] != 'o') && closeTiles.Count > 0){
+                closeTiles.RemoveAt(index);
+                index = Random.Range(0, closeTiles.Count);
+                possibleGuess = hitIndex[0] + closeTiles[index];
+                onGrid = possibleGuess > -1 && possibleGuess < 100;
+            }
+            guess = possibleGuess;
+        }
+        else
+        {
+            int nextIndex = Random.Range(0, 100);
+            while(guessGrid[nextIndex] != 'o') nextIndex = Random.Range(0, 100);
+            nextIndex = GuessAgainCheck(nextIndex);
+            Debug.Log(" --- ");
+            nextIndex = GuessAgainCheck(nextIndex);
+            Debug.Log(" -########-- ");
+            guess = nextIndex;
+        }
+        GameObject tile = GameObject.Find("Tile (" + (guess + 1) + ")");
+        guessGrid[guess] = 'm';
+        Vector3 vec = tile.transform.position;
+        vec.y += 15;
+        GameObject missile = Instantiate(enemyMissilePrefab, vec, enemyMissilePrefab.transform.rotation);
+        missile.GetComponent<EnemyMissiles>().SetTarget(guess);
+        missile.GetComponent<EnemyMissiles>().targetTileLocation = tile.transform.position;
+    }
+
+    private int GuessAgainCheck(int nextIndex)
+    {
+        string str = "nx: " + nextIndex;
+        int newGuess = nextIndex;
+        bool edgeCase = nextIndex < 10 || nextIndex > 89 || nextIndex % 10 == 0 || nextIndex % 10 == 9;
+        bool nearGuess = false;
+        if (nextIndex + 1 < 100) nearGuess = guessGrid[nextIndex + 1] != 'o';
+        if (!nearGuess && nextIndex - 1 > 0) nearGuess = guessGrid[nextIndex - 1] != 'o';
+        if (!nearGuess && nextIndex + 10 < 100) nearGuess = guessGrid[nextIndex + 10] != 'o';
+        if (!nearGuess && nextIndex - 10 > 0) nearGuess = guessGrid[nextIndex - 10] != 'o';
+        if (edgeCase || nearGuess) newGuess = Random.Range(0, 100);
+        while (guessGrid[newGuess] != 'o') newGuess = Random.Range(0, 100);
+        Debug.Log(str + " newGuess: " + newGuess + " e:" + edgeCase + " g:" + nearGuess);
+        return newGuess;
+    }
 }
