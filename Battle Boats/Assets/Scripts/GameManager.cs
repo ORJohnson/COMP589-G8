@@ -18,11 +18,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _ship4Prefab;
     [SerializeField] private GameObject _ship5Prefab;
 
+    [Header("Ships")]
     public GameObject[] ships;
+    public List<TileScript> allTileScripts; //Didnt exist
+    public EnemyScript enemyScript;
+    private ShipScript shipScript;
+    private List<int[]> enemyShips;
+    private int shipsIndex = 0;
 
     [Header("HUD")]
     public Button nextBtn;
     public Button rotateBtn;
+    public Button replayBtn;
     public Text topText;
     public Text playerShipText;
     public Text enemyShipText;
@@ -34,11 +41,9 @@ public class GameManager : MonoBehaviour
 
     private bool setupComplete = false;
     private bool playerTurn = true;
-    private int shipsIndex = 0;
-    public EnemyScript enemyScript;
-    private ShipScript shipScript;
-    private List<int[]> enemyShips;
-    private List<GameObject> playerFires;
+ 
+    private List<GameObject> playerFires = new List<GameObject>();
+    private List<GameObject> enemtFires = new List<GameObject>(); //didnt exist
 
     private int enemyShipCount = 5;
     private int playerShipCount = 5;
@@ -51,6 +56,7 @@ public class GameManager : MonoBehaviour
         shipScript = ships[shipsIndex].GetComponent<ShipScript>();
         nextBtn.onClick.AddListener(() => NextShipClicked());
         rotateBtn.onClick.AddListener(() => RotateClicked());
+        replayBtn.onClick.AddListener(() => ReplayClicked());
         enemyShips = enemyScript.PlaceEnemyShips();
     }
 
@@ -221,6 +227,11 @@ public class GameManager : MonoBehaviour
             // execute script for enemy sinking the player's ship => enemyScript.SunkPlayer();
         }
         // Invoke("EndEnemyTurn", 2.0f);
+    }
+
+     void ReplayClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

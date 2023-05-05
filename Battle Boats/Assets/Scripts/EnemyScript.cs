@@ -92,6 +92,24 @@ public class EnemyScript : MonoBehaviour
 
     private void EndTurn()
     {
-        //gameManager.GetComponent<GameManager>().EndEnemyTurn();
+        gameManager.GetComponent<GameManager>().EndEnemyTurn();
+    }
+
+   public void PauseAndEnd(int miss)
+    {
+        if(currentHits.Count > 0 && currentHits[0] > miss)
+        {
+            foreach(int potential in potentialHits)
+            {
+                if(currentHits[0] > miss)
+                {
+                    if (potential < miss) potentialHits.Remove(potential);
+                } else
+                {
+                    if (potential > miss) potentialHits.Remove(potential);
+                }
+            }
+        }
+        Invoke("EndTurn", 1.0f);
     }
 }

@@ -16,15 +16,22 @@ public class EnemyMissiles : MonoBehaviour
         enemyScript = GameObject.Find("Enemy").GetComponent<EnemyScript>();
     }
 
-    private void OnCollisionEnter(Collision collision) // Might have to use OnCollisionEnter2D(Collision2D collision)
+ private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ship"))
         {
-            // gameManager.EnemyHitPlayer(targetTileLocation, targetTile, collision.gameObject);
+            if (collision.gameObject.name == "Submarine") targetTileLocation.y += 0.3f;
+            gameManager.EnemyHitPlayer(targetTileLocation, targetTile, collision.gameObject);
         }
         else
         {
-
+            enemyScript.PauseAndEnd(targetTile);
         }
+        Destroy(gameObject);
+    }
+
+      public void SetTarget(int target)
+    {
+        targetTile = target;
     }
 }
