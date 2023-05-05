@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xOffset: 0
   yOffset: -0.5
-  shipSize: 0
+  shipSize: 4
 --- !u!61 &3874984651634035517
 BoxCollider2D:
   m_ObjectHideFlags: 0
