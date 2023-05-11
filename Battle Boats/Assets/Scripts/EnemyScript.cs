@@ -160,11 +160,11 @@ public class EnemyScript : MonoBehaviour
             Debug.Log(" -########-- ");
             guess = nextIndex;
         }
-        GameObject tile = GameObject.Find("Tile (" + (guess + 1) + ")");
+        GameObject tile = GameObject.Find("Node (" + (guess + 1) + ")");
         guessGrid[guess] = 'm';
         Vector3 vec = tile.transform.position;
-        vec.y += 15;
-        GameObject missile = Instantiate(enemyMissilePrefab, vec, enemyMissilePrefab.transform.rotation);
+        vec.y += 15; // This might still work because our game is 2D. Just have to figure out a way to make the missile travel across the screen and make contact with tile
+        GameObject missile = Instantiate(_enemyMissilePrefab, vec, _enemyMissilePrefab.transform.rotation);
         missile.GetComponent<EnemyMissiles>().SetTarget(guess);
         missile.GetComponent<EnemyMissiles>().targetTileLocation = tile.transform.position;
     }

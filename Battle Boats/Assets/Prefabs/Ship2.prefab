@@ -94,10 +94,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3818352392817435917}
   - component: {fileID: 2638002868550089265}
-  - component: {fileID: 3874984651634035517}
+  - component: {fileID: -5112836847406267309}
+  - component: {fileID: -3365058573754983750}
   m_Layer: 0
   m_Name: Ship2
-  m_TagString: Untagged
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,8 +134,32 @@ MonoBehaviour:
   xOffset: 0
   yOffset: -0.5
   shipSize: 4
---- !u!61 &3874984651634035517
-BoxCollider2D:
+  otherLayer:
+    serializedVersion: 2
+    m_Bits: 2
+--- !u!50 &-5112836847406267309
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2224041795638449327}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &-3365058573754983750
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -143,7 +168,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -156,6 +181,14 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1192866, y: 0.64770275}
+      - {x: 0.0534657, y: 1.0352325}
+      - {x: -0.04008432, y: 1.2525313}
+      - {x: -0.13356689, y: 1.0263538}
+      - {x: -0.24557203, y: 0.20880613}
+      - {x: -0.20297548, y: -1.2178774}
+      - {x: -0.032580096, y: -1.2339112}
+      - {x: 0.1468575, y: -1.2258942}
+      - {x: 0.16941172, y: 0.22483996}
