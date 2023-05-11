@@ -12,9 +12,9 @@ public class Missiles : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnCollisionEnter(Collision collision) // Might have to use OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) // Might have to use OnCollisionEnter2D(Collision2D collision)
     {
-        // gameManager.CheckHit(collision.gameObject);
+        gameManager.CheckHit(collision.gameObject);
         Destroy(gameObject);
     }
 }

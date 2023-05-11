@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Node : MonoBehaviour
@@ -60,4 +61,23 @@ public class Node : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = hitColor[colorIndex];
     }
+
+
+
+
+
+
+    // Might delete this but we'll see. Trying to return list of all the Nodes
+    //public List<BoxCollider2D> GrabbingBoxColliders()
+    //{
+    //    List<BoxCollider2D> allBoxColliders = new List<BoxCollider2D>();
+    //    List<Node> nodes = new List<Node>();
+
+    //    nodes = GetComponents<Node>().ToList();
+    //    for (int i = 0; i < nodes.Count; i++)
+    //    {
+    //        allBoxColliders.Add(nodes[i].GetComponent<BoxCollider2D>());
+    //    }
+    //    return allBoxColliders;
+    //}
 }

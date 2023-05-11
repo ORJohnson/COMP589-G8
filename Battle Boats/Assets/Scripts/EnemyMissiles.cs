@@ -16,7 +16,7 @@ public class EnemyMissiles : MonoBehaviour
         enemyScript = GameObject.Find("Enemy").GetComponent<EnemyScript>();
     }
 
- private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2d(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ship"))
         {
@@ -30,7 +30,7 @@ public class EnemyMissiles : MonoBehaviour
         Destroy(gameObject);
     }
 
-      public void SetTarget(int target)
+    public void SetTarget(int target)
     {
         targetTile = target;
     }

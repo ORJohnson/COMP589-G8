@@ -1533,7 +1533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d91ff1e326d33b489f7abefb67bb668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMissilePrefab: {fileID: 0}
+  _enemyMissilePrefab: {fileID: 0}
   gameManager: {fileID: 0}
 --- !u!4 &1403708848
 Transform:
@@ -1785,16 +1785,23 @@ MonoBehaviour:
   _ship3Prefab: {fileID: 1139870433556996668, guid: 1a78e981a044b3a42b81de50d3485ce0, type: 3}
   _ship4Prefab: {fileID: 5300993884609254186, guid: 3a61ecd4770121045889bf0ec8958d46, type: 3}
   _ship5Prefab: {fileID: 1182676307305895754, guid: 6fad0bb65a0ed14439abe72ae3cc0f14, type: 3}
-  nextBtn: {fileID: 1063797028}
-  rotateBtn: {fileID: 1708092812}
   ships:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  allTileScripts: []
   enemyScript: {fileID: 1403708847}
-  firePrefab: {fileID: 0}
+  nextBtn: {fileID: 1063797028}
+  rotateBtn: {fileID: 1708092812}
+  replayBtn: {fileID: 0}
+  topText: {fileID: 0}
+  playerShipText: {fileID: 0}
+  enemyShipText: {fileID: 0}
+  _playerMissilePrefab: {fileID: 2878448032344275112, guid: 55d4f6b810b8afd4788ac1960404ac72, type: 3}
+  _enemyMissilePrefab: {fileID: 6019425331573142177, guid: 0622d901f255f774baf4d6b7ac06fb5c, type: 3}
+  _firePrefab: {fileID: 7841363541845845415, guid: 2cb56a54b863b19478660ec54d86bdad, type: 3}
 --- !u!4 &1782286238
 Transform:
   m_ObjectHideFlags: 0

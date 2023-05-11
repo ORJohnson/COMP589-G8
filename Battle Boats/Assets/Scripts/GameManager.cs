@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     private bool playerTurn = true;
  
     private List<GameObject> playerFires = new List<GameObject>();
-    private List<GameObject> enemyFires = new List<GameObject>(); //didnt exist
+    private List<GameObject> enemyFires = new List<GameObject>();
 
     private int enemyShipCount = 5;
     private int playerShipCount = 5;
@@ -57,17 +57,17 @@ public class GameManager : MonoBehaviour
         shipScript = ships[shipsIndex].GetComponent<ShipScript>();
         nextBtn.onClick.AddListener(() => NextShipClicked());
         rotateBtn.onClick.AddListener(() => RotateClicked());
-        replayBtn.onClick.AddListener(() => ReplayClicked());
+        //replayBtn.onClick.AddListener(() => ReplayClicked());
         enemyShips = enemyScript.PlaceEnemyShips();
     }
 
     private void NextShipClicked()
     {
-         //if (!shipScript.OnGameBoard())
-         //{
-         //    shipScript.FlashColor(Color.red);
-         //} else
-         //{
+         if (!shipScript.OnGameBoard())
+         {
+             shipScript.FlashColor(Color.red);
+         } else
+         {
             if (shipsIndex <= ships.Length - 2)
             {
                 //  shipScript.GetComponent<SpriteRenderer>().color = Color.yellow;
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
                 setupComplete = true;
                 for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
             }
-         //}
+         }
     }
 
     void GenerateGrid()
@@ -153,8 +153,7 @@ public class GameManager : MonoBehaviour
         {
             PlaceShip(tile);
             shipScript.SetClickedTile(tile);
-
-
+            //shipScript.OverlappedNodes();
         }
     }
 
@@ -183,7 +182,7 @@ public class GameManager : MonoBehaviour
                 {
                     enemyShipCount--;
                     topText.text = "SUNK!!!!!!";
-                    enemyFires.Add(Instantiate(firePrefab, tile.transform.position, Quaternion.identity));
+                    enemyFires.Add(Instantiate(_firePrefab, tile.transform.position, Quaternion.identity));
                     tile.GetComponent<Node>().SetTileColor(1, new Color32(68, 0, 0, 255));
                     tile.GetComponent<Node>().SwitchColors(1);
                 }
@@ -212,6 +211,7 @@ public class GameManager : MonoBehaviour
         shipScript.ClearTileList();
         Vector2 newVec = shipScript.GetOffsetVec(tile.transform.position);
         ships[shipsIndex].transform.localPosition = newVec;
+        //shipScript.OverlappedNodes();
 
     }
 
@@ -223,8 +223,8 @@ public class GameManager : MonoBehaviour
     public void EnemyHitPlayer(Vector3 tile, int tileNum, GameObject hitObj)
     {
         enemyScript.MissileHit(tileNum);
-        tile.y += 0.2f;
-        playerFires.Add(Instantiate(firePrefab, tile, Quaternion.identity));
+        tile.z += 0.2f; // This might have to be tile.z because we are working on the x and y axis
+        playerFires.Add(Instantiate(_firePrefab, tile, Quaternion.identity));
         if (hitObj.GetComponent<ShipScript>().HitCheckSank())
         {
             playerShipCount--;
@@ -244,10 +244,10 @@ public class GameManager : MonoBehaviour
         topText.text = "Enemy's turn";
         enemyScript.NPCTurn();
         ColorAllTiles(0);
-        if (playerShipCount < 1) GameOver("ENEMY WINs!!!");
+        if (playerShipCount < 1) GameOver("ENEMY WINS!!!");
     }
 
-    private void EndEnemyTurn()
+    public void EndEnemyTurn()
     {
         for (int i = 0; i < ships.Length; i++) ships[i].SetActive(false);
         foreach (GameObject fire in playerFires) fire.SetActive(false);
