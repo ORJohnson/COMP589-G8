@@ -7,14 +7,13 @@ public class MainMenu : MonoBehaviour
 {
     public void StartBattle()
     {
-        // SceneManager.LoadScene("Ships");
          SceneManager.LoadScene("BoardScene");
     }
 
     public void ExitGame() {
         Debug.Log("Exiting.....");
-        Application.Quit();
         SceneManager.LoadScene("ExitPage");
+        Application.Quit();
     }
 
     public void Instructions()

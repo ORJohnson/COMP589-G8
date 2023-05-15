@@ -10,7 +10,7 @@ public class EnemyMissiles : MonoBehaviour
     private int targetTile = -1;
     private bool isMoving = false;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -40,7 +40,6 @@ public class EnemyMissiles : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Ship"))
             {
-                //if (collision.gameObject.name == "Submarine") targetTileLocation.y += 0.3f; // need to understand this also it should be z instead of y
                 isMoving = false;
                 gameManager.EnemyHitPlayer(targetTileLocation, targetTile, collision.gameObject);
             }

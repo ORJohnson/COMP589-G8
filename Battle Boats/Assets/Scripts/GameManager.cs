@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public Button nextBtn;
     public Button rotateBtn;
     public Button replayBtn;
+    public Button mainMenuBtn;
     public TextMeshProUGUI topText;
     public TextMeshProUGUI playerShipCountText;
     public TextMeshProUGUI enemyShipCountText;
@@ -60,7 +61,8 @@ public class GameManager : MonoBehaviour
         shipScript = ships[shipsIndex].GetComponent<ShipScript>();
         nextBtn.onClick.AddListener(() => NextShipClicked());
         rotateBtn.onClick.AddListener(() => RotateClicked());
-        //replayBtn.onClick.AddListener(() => ReplayClicked());
+        replayBtn.onClick.AddListener(() => ReplayClicked());
+        mainMenuBtn.onClick.AddListener(() => BackToMainMenu());
         enemyShips = enemyScript.PlaceEnemyShips();
         allNodes = GameObject.FindGameObjectsWithTag("Node");
         for(int i = 0; i < allNodes.Length - 25; i++)
@@ -78,7 +80,6 @@ public class GameManager : MonoBehaviour
          {
             if (shipsIndex <= ships.Length - 2)
             {
-                //  shipScript.GetComponent<SpriteRenderer>().color = Color.yellow;
                 shipsIndex++;
                 shipScript = ships[shipsIndex].transform.GetChild(0).gameObject.GetComponent<ShipScript>();
                 shipScript.FlashColor(Color.yellow);
@@ -109,7 +110,6 @@ public class GameManager : MonoBehaviour
 
         var center = new Vector2((float) _width/2 - 0.5f, (float) _height/2);
 
-        // Use that^ for the board as well
         var board = Instantiate(_boardPrefab, center, Quaternion.identity);
         board.size = new Vector2(_width, _height);
 
@@ -117,7 +117,7 @@ public class GameManager : MonoBehaviour
         Camera.main.orthographicSize = 8;
     }
 
-    // Going to try to create a smaller grid for ships to sit before being placed
+
     void GenerateDockGrid()
     {
         for (int x = 0; x < _width - 5; x++)
@@ -139,15 +139,11 @@ public class GameManager : MonoBehaviour
     // Original Ships position
     void DockShips()
     {
-        // Let's just try putting the ships on the board in their proper place with their proper sizes
         ships[0] = Instantiate(_ship1Prefab, new Vector2(-6, 4.4f), Quaternion.identity);
         ships[1] = Instantiate(_ship2Prefab, new Vector2(-5, 4), Quaternion.identity);
         ships[2] = Instantiate(_ship3Prefab, new Vector2(-4, 3.46f), Quaternion.identity);
         ships[3] = Instantiate(_ship4Prefab, new Vector2(-3, 3.46f), Quaternion.identity);
         ships[4] = Instantiate(_ship5Prefab, new Vector2(-2, 3), Quaternion.identity);
-        //Debug.Log("LOOK HERE: " + ships[0].transform.GetChild(0).gameObject.name);
-
-        //Debug.Log(ships.Length);
     }
 
     public void TileClicked(GameObject tile)
@@ -155,11 +151,9 @@ public class GameManager : MonoBehaviour
         if(setupComplete && playerTurn)
         {
             Vector2 tilePos = tile.transform.position;
-            //tilePos.z += 15; // Might be tilePos.y += 15 instead but not sure yet
             tilePos.x += 20;
             playerTurn = false;
-            var missile = Instantiate(_playerMissilePrefab, tilePos, _playerMissilePrefab.transform.rotation); // Pay attention to this
-            // I'm thinking that I'd have to do a position animation here where we can also add like 20 to the tilePos.x and then make it travel to the original tile position
+            var missile = Instantiate(_playerMissilePrefab, tilePos, _playerMissilePrefab.transform.rotation);
             missileScript = missile.gameObject.GetComponent<Missiles>();
             missileScript.LaunchMissile(tile);
         } else if (!setupComplete)
@@ -169,7 +163,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CheckHit(GameObject tile) // This needs to be looked at because the Tiles do not have names. Possibly need to give nodes names in GenerateGrid() Method
+    public void CheckHit(GameObject tile)
     {
         int tileNum = Int32.Parse(Regex.Match(tile.name, @"\d+").Value);
         int hitCount = 0;
@@ -281,11 +275,17 @@ public class GameManager : MonoBehaviour
     {
         topText.text = "GAME OVER: " + winner;
         replayBtn.gameObject.SetActive(true);
+        mainMenuBtn.gameObject.SetActive(true);
         playerTurn = false;
     }
 
     void ReplayClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene("WelcomePage");
     }
 }

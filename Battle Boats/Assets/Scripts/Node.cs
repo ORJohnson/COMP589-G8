@@ -12,7 +12,7 @@ public class Node : MonoBehaviour
     private bool missileHit = false;
     Color32[] hitColor = new Color32[2];
 
-    // Start is called before the first frame update
+
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -34,7 +34,6 @@ public class Node : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
-                    Debug.Log("THIS TILE IS BEING CLICKED");
                     GameObject clickedObject = hit.collider.gameObject;
                     gameManager.TileClicked(clickedObject);
                 }
@@ -44,18 +43,21 @@ public class Node : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerMissile"))
+        enemyMissileScript = collision.gameObject.GetComponent<EnemyMissiles>();
+        if (gameObject.transform.position == enemyMissileScript.targetTileLocation)
         {
-            missileHit = true;
-        } else if (collision.gameObject.CompareTag("EnemyMissile"))
-        {
-            enemyMissileScript = collision.gameObject.GetComponent<EnemyMissiles>();
-            // Set tile color to be different so we know enemy has taken turn
-            if (gameObject.transform.position == enemyMissileScript.targetTileLocation)
+            if (collision.gameObject.CompareTag("PlayerMissile"))
+            {
+                missileHit = true;
+            }
+            else if (collision.gameObject.CompareTag("EnemyMissile"))
             {
                 hitColor[0] = new Color32(38, 57, 76, 255);
                 gameObject.GetComponentInChildren<SpriteRenderer>().material.color = hitColor[0];
             }
+        } else
+        {
+            Debug.Log("This is not the target tile");
         }
     }
 
@@ -68,23 +70,4 @@ public class Node : MonoBehaviour
     {
         gameObject.GetComponentInChildren<SpriteRenderer>().material.color = hitColor[colorIndex];
     }
-
-
-
-
-
-
-    // Might delete this but we'll see. Trying to return list of all the Nodes
-    //public List<BoxCollider2D> GrabbingBoxColliders()
-    //{
-    //    List<BoxCollider2D> allBoxColliders = new List<BoxCollider2D>();
-    //    List<Node> nodes = new List<Node>();
-
-    //    nodes = GetComponents<Node>().ToList();
-    //    for (int i = 0; i < nodes.Count; i++)
-    //    {
-    //        allBoxColliders.Add(nodes[i].GetComponent<BoxCollider2D>());
-    //    }
-    //    return allBoxColliders;
-    //}
 }
