@@ -11,7 +11,7 @@ public class Missiles : MonoBehaviour
     private bool isMoving = false;
     private GameObject target;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -23,7 +23,6 @@ public class Missiles : MonoBehaviour
         {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(target.transform.position.x, target.transform.position.y + 0.5f), 15f * Time.deltaTime);
             transform.up = new Vector3(target.transform.position.x, target.transform.position.y + 0.5f) - transform.position;
-            //transform.up = target.transform.position - transform.position;
         }
     }
 
@@ -37,11 +36,10 @@ public class Missiles : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) // Might have to use OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.transform.position == target.transform.position)
         {
-            Debug.Log("MISSILE IS COLLIDING!!!!! " + collision.gameObject.name);
             isMoving = false;
             gameManager.CheckHit(collision.gameObject);
             Destroy(gameObject);

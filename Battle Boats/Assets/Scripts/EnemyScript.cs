@@ -42,7 +42,7 @@ public class EnemyScript : MonoBehaviour
                 taken = false;
                 int shipNose = UnityEngine.Random.Range(0, 99);
                 int rotateBool = UnityEngine.Random.Range(0, 2);
-                int minusAmount = rotateBool == 0 ? 10 : 1; // might have to flip this being that our board is populating vertically
+                int minusAmount = rotateBool == 0 ? 10 : 1;
                 for(int i = 0; i < tileNumArray.Length; i++)
                 {
                     // check that ship end will not go off board and check if tile is taken
@@ -69,10 +69,12 @@ public class EnemyScript : MonoBehaviour
                 }
             }
         }
-        Debug.Log(enemyShips);
-        foreach(var x in enemyShips)
+        foreach(int[] numArray in enemyShips)
         {
-            Debug.Log("x: " + x[0]);
+            string temp = "";
+            for (int i = 0; i < numArray.Length; i++)
+                temp += ", " + numArray[i];
+            Debug.Log(temp);
         }
         Debug.Log("Placed all the 5 enemy ships");
         return enemyShips;
@@ -157,16 +159,14 @@ public class EnemyScript : MonoBehaviour
             int nextIndex = Random.Range(0, 100);
             while(guessGrid[nextIndex] != 'o') nextIndex = Random.Range(0, 100);
             nextIndex = GuessAgainCheck(nextIndex);
-            Debug.Log(" --- ");
             nextIndex = GuessAgainCheck(nextIndex);
-            Debug.Log(" -########-- ");
             guess = nextIndex;
         }
         GameObject tile = GameObject.Find("Node(" + (guess + 1) + ")");
         Debug.Log(tile);
         guessGrid[guess] = 'm';
         Vector3 vec = tile.transform.position;
-        vec.x += 20; // This might still work because our game is 2D. Just have to figure out a way to make the missile travel across the screen and make contact with tile
+        vec.x += 20;
         GameObject missile = Instantiate(_enemyMissilePrefab, vec, _enemyMissilePrefab.transform.rotation);
         enemyMissileScript = missile.GetComponent<EnemyMissiles>();
         enemyMissileScript.SetTarget(guess);

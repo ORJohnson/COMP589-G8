@@ -22,7 +22,6 @@ public class ShipScript : MonoBehaviour
 
     List<GameObject> touchTiles = new List<GameObject>();
     List<Color> allColors = new List<Color>();
-    //List<Node> allNodes = new List<Node>();
     private GameObject[] allNodes;
     public List<BoxCollider2D> allBoxColliders = new List<BoxCollider2D>();
 
