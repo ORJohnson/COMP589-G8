@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Node : MonoBehaviour
 {
     GameManager gameManager;
+    private EnemyMissiles enemyMissileScript;
 
     private bool missileHit = false;
     Color32[] hitColor = new Color32[2];
@@ -14,12 +16,12 @@ public class Node : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        hitColor[0] = gameObject.GetComponent<MeshRenderer>().material.color;
-        hitColor[1] = gameObject.GetComponent<MeshRenderer>().material.color;
+        hitColor[0] = gameObject.GetComponentInChildren<SpriteRenderer>().material.color;
+        hitColor[1] = gameObject.GetComponentInChildren<SpriteRenderer>().material.color;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void OnMouseDown()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -32,6 +34,7 @@ public class Node : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
                 if (hit.collider != null)
                 {
+                    Debug.Log("THIS TILE IS BEING CLICKED");
                     GameObject clickedObject = hit.collider.gameObject;
                     gameManager.TileClicked(clickedObject);
                 }
@@ -46,9 +49,13 @@ public class Node : MonoBehaviour
             missileHit = true;
         } else if (collision.gameObject.CompareTag("EnemyMissile"))
         {
+            enemyMissileScript = collision.gameObject.GetComponent<EnemyMissiles>();
             // Set tile color to be different so we know enemy has taken turn
-            hitColor[0] = new Color32(38, 57, 76, 255);
-            GetComponent<Renderer>().material.color = hitColor[0];
+            if (gameObject.transform.position == enemyMissileScript.targetTileLocation)
+            {
+                hitColor[0] = new Color32(38, 57, 76, 255);
+                gameObject.GetComponentInChildren<SpriteRenderer>().material.color = hitColor[0];
+            }
         }
     }
 
@@ -59,7 +66,7 @@ public class Node : MonoBehaviour
 
     public void SwitchColors(int colorIndex)
     {
-        GetComponent<Renderer>().material.color = hitColor[colorIndex];
+        gameObject.GetComponentInChildren<SpriteRenderer>().material.color = hitColor[colorIndex];
     }
 
 

@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3707889380889978948}
   - component: {fileID: 6108492946946460424}
-  - component: {fileID: -4637016062838631420}
+  - component: {fileID: -9130183904427884938}
   - component: {fileID: 5368505448489978272}
   - component: {fileID: -8523282518217612700}
   m_Layer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1b6617fc3606514dbcb9b562809d7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &-4637016062838631420
+--- !u!23 &-9130183904427884938
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
