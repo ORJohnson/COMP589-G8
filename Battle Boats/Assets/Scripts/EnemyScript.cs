@@ -11,12 +11,14 @@ public class EnemyScript : MonoBehaviour
     private int guess;
     public GameObject _enemyMissilePrefab;
     public GameManager gameManager;
+    private EnemyMissiles enemyMissileScript;
 
     private void Start()
     {
         potentialHits = new List<int>();
         currentHits = new List<int>();
         guessGrid = Enumerable.Repeat('o', 100).ToArray();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public List<int[]> PlaceEnemyShips()
@@ -40,7 +42,7 @@ public class EnemyScript : MonoBehaviour
                 taken = false;
                 int shipNose = UnityEngine.Random.Range(0, 99);
                 int rotateBool = UnityEngine.Random.Range(0, 2);
-                int minusAmount = rotateBool == 0 ? 10 : 1;
+                int minusAmount = rotateBool == 0 ? 10 : 1; // might have to flip this being that our board is populating vertically
                 for(int i = 0; i < tileNumArray.Length; i++)
                 {
                     // check that ship end will not go off board and check if tile is taken
@@ -92,7 +94,7 @@ public class EnemyScript : MonoBehaviour
 
     private void EndTurn()
     {
-        gameManager.GetComponent<GameManager>().EndEnemyTurn();
+        gameManager.EndEnemyTurn();
     }
 
    public void PauseAndEnd(int miss)
@@ -160,13 +162,16 @@ public class EnemyScript : MonoBehaviour
             Debug.Log(" -########-- ");
             guess = nextIndex;
         }
-        GameObject tile = GameObject.Find("Node (" + (guess + 1) + ")");
+        GameObject tile = GameObject.Find("Node(" + (guess + 1) + ")");
+        Debug.Log(tile);
         guessGrid[guess] = 'm';
         Vector3 vec = tile.transform.position;
-        vec.y += 15; // This might still work because our game is 2D. Just have to figure out a way to make the missile travel across the screen and make contact with tile
+        vec.x += 20; // This might still work because our game is 2D. Just have to figure out a way to make the missile travel across the screen and make contact with tile
         GameObject missile = Instantiate(_enemyMissilePrefab, vec, _enemyMissilePrefab.transform.rotation);
-        missile.GetComponent<EnemyMissiles>().SetTarget(guess);
-        missile.GetComponent<EnemyMissiles>().targetTileLocation = tile.transform.position;
+        enemyMissileScript = missile.GetComponent<EnemyMissiles>();
+        enemyMissileScript.SetTarget(guess);
+        enemyMissileScript.targetTileLocation = tile.transform.position;
+        enemyMissileScript.LaunchEnemyMissile(tile);
     }
 
     private int GuessAgainCheck(int nextIndex)
