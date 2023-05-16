@@ -8,6 +8,7 @@ public class Node : MonoBehaviour
 {
     GameManager gameManager;
     private EnemyMissiles enemyMissileScript;
+    private Missiles playerMissileScript;
 
     private bool missileHit = false;
     Color32[] hitColor = new Color32[2];
@@ -43,21 +44,21 @@ public class Node : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        enemyMissileScript = collision.gameObject.GetComponent<EnemyMissiles>();
-        if (gameObject.transform.position == enemyMissileScript.targetTileLocation)
+        if (collision.gameObject.CompareTag("PlayerMissile"))
         {
-            if (collision.gameObject.CompareTag("PlayerMissile"))
+            playerMissileScript = collision.gameObject.GetComponent<Missiles>();
+            if(gameObject.transform.position == playerMissileScript.target.transform.position)
             {
                 missileHit = true;
             }
-            else if (collision.gameObject.CompareTag("EnemyMissile"))
+        } else if (collision.gameObject.CompareTag("EnemyMissile"))
+        {
+            enemyMissileScript = collision.gameObject.GetComponent<EnemyMissiles>();
+            if (gameObject.transform.position == enemyMissileScript.targetTileLocation)
             {
                 hitColor[0] = new Color32(38, 57, 76, 255);
                 gameObject.GetComponentInChildren<SpriteRenderer>().material.color = hitColor[0];
             }
-        } else
-        {
-            Debug.Log("This is not the target tile");
         }
     }
 

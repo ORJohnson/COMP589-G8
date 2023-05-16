@@ -9,7 +9,7 @@ public class Missiles : MonoBehaviour
 {
     private GameManager gameManager;
     private bool isMoving = false;
-    private GameObject target;
+    public GameObject target;
 
 
     void Start()
