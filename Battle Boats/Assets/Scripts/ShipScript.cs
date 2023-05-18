@@ -12,7 +12,6 @@ public class ShipScript : MonoBehaviour
     public float offsetVariable = 0.5f;
     private float nextZRotation = 90f;
     private GameObject clickedTile;
-    private GameObject previouslyClickedTile;
     int hitCount = 0;
     public int shipSize;
 
@@ -39,11 +38,6 @@ public class ShipScript : MonoBehaviour
         {
             allBoxColliders.Add(allNodes[i].GetComponent<BoxCollider2D>());
         }
-    }
-
-    private void Update()
-    {
-        
     }
 
 
