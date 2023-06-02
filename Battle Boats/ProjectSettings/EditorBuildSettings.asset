@@ -6,20 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/WelcomePage.unity
     guid: 8814eb25b3dafc74890f61d653e61a00
-  - enabled: 1
-    path: Assets/Scenes/Main.unity
-    guid: f5eaa6176cfe7d24aaaa8e300f809102
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/InstructionsPage.unity
     guid: de3a0fa5919116f47810d8084be5ef48
-  - enabled: 1
-    path: Assets/Scenes/Ships.unity
-    guid: 5bd5ddf4004ce4e9ebdbb520c0d53135
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/ExitPage.unity
     guid: 63cb5741bdeb3fe4eb1a4c4c331b295f
