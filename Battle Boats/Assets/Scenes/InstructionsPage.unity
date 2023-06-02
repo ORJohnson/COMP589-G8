@@ -316,10 +316,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PLACE EACH SHIP IN ANY HORIZONTAL OR VERTICAL POSITION ON YOUR BOARD.
+  m_text: 'PLACE EACH BOAT IN ANY HORIZONTAL OR VERTICAL POSITION ON YOUR BOARD.
 
     DO
-    NOT PLACE A SHIP SO THAT ANY PART OF IT OVERLAPS ANOTHER SHIP.
+    NOT PLACE A BOAT SO THAT ANY PART OF IT OVERLAPS ANOTHER BOAT.
 
 '
   m_isRightToLeft: 0
@@ -1136,7 +1136,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'RULES FOR PLACING SHIPS
+  m_text: 'RULES FOR PLACING BOATS
 
 '
   m_isRightToLeft: 0
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Be the first to sink all of your opponent's ships.
+  m_text: Be the first to sink all of your opponent's boats.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1622,12 +1622,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "ON YOUR TURN, TARGET A TILE OF YOUR OPPONENT AND CLICK ON IT TO ATTACK.\r\nIF
-    YOU SHOOT AT A TILE THAT IS OCCUPIED BY A SHIP ON YOUR OPPONENT\u2019S GRID,
-    IT'S A HIT!!!\r\nIF YOU SHOOT AT A TILE THAT IS NOT OCCUPIED BY A SHIP ON YOUR
-    OPPONENT\u2019S GRID, IT'S A MISS!!!\r\nALL THE TILES OF THE CORRESPONDING SHIP
-    NEED TO BE SHOT IN ORDER TO SINK THE SHIP.\r\nPOINTS WILL BE CALCULATED BASED
-    ON THE NUMBER OF YOUR OPPONENT\u2019S SHIPS YOU SUNK.\r\nFINALLY IF YOU SINK
-    ALL YOUR OPPONENT\u2019S SHIPS, YOU WIN THE GAME!\r\n"
+    YOU SHOOT AT A TILE THAT IS OCCUPIED BY A BOAT ON YOUR OPPONENT\u2019S GRID,
+    IT'S A HIT!!!\r\nIF YOU SHOOT AT A TILE THAT IS NOT OCCUPIED BY A BOAT ON YOUR
+    OPPONENT\u2019S GRID, IT'S A MISS!!!\r\nALL THE TILES OF THE CORRESPONDING BOAT
+    NEED TO BE SHOT IN ORDER TO SINK THE BOAT.\r\nPOINTS WILL BE CALCULATED BASED
+    ON THE NUMBER OF YOUR OPPONENT\u2019S BOATS YOU SUNK.\r\nFINALLY IF YOU SINK
+    ALL YOUR OPPONENT\u2019S BOATS, YOU WIN THE GAME!\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
